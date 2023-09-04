@@ -65,13 +65,13 @@ stages:
           resourceName: websites 
         
         strategy:
-          rolling:
+          runOnce:
             deploy:
               steps:
 
-                # - checkout: none
+                - checkout: none
 
-                # - download: current
+                - download: current
 
 
                 - script: tree $(Pipeline.Workspace)
