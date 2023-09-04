@@ -11,7 +11,12 @@ steps:
   displayName: 'Install Node.js'
 
 - script: npm install
-  displayName: Install dependencies
+  workingDirectory: Server
+  displayName: Install Server dependencies
+
+- script: npm install
+  workingDirectory: Calling
+  displayName: Install Calling dependencies
 
 - script: npm run setup
   displayName: Setup
