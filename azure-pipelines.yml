@@ -10,7 +10,14 @@ steps:
     versionSpec: '12.18.4'
   displayName: 'Install Node.js'
 
-- script: npm install
+- script: npm install -g npm@latest
+  displayName: Update NPM to latest version
+
+- script: export NODE_OPTIONS="--max-old-space-size=4096" && npm install
+  workingDirectory: Server
+  displayName: Install Server dependencies
+
+- script: npm install --loglevel verbose
   workingDirectory: Server
   displayName: Install Server dependencies
 
