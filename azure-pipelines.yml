@@ -69,10 +69,12 @@ stages:
             deploy:
               steps:
 
-                - checkout: none
+                - script: echo 'hello'
 
-                - download: current
+                # - checkout: none
+
+                # - download: current
 
 
-                - script: tree $(Pipeline.Workspace)
+                # - script: tree $(Pipeline.Workspace)
                 
