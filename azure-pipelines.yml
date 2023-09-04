@@ -29,14 +29,14 @@ steps:
 - script: npm run setup
   displayName: Setup
 
-- script: npm run clean
-  displayName: Clean  # If your build script uses this
+# - script: npm run clean
+#   displayName: Clean  # If your build script uses this
 
-- script: tsc
-  displayName: Run TypeScript Compiler
+# - script: tsc
+#   displayName: Run TypeScript Compiler
 
-- script: webpack --mode=production --env production
-  displayName: Run Webpack
+# - script: webpack --mode=production --env production
+#   displayName: Run Webpack
 
 - script: npm run package
   displayName: Package
