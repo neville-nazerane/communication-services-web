@@ -55,7 +55,26 @@ stages:
             
           - publish: Calling/dist
             
-          
+
+  - stage: DeployDev
+    variables: 
+      - group: Socially-Dev
+    displayName: Deploy to Dev
+    jobs:
+      - deployment: DevDeploy
+        displayName: Deploy to Development VM
+        environment:
+          name: Development
+          resourceType: VirtualMachine
+          resourceName: websites
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+
+                - script: echo 'hello world'
+
+            
   - stage: Deploy
     jobs:
       - deployment: Deploy
