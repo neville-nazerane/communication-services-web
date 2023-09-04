@@ -69,9 +69,10 @@ stages:
             deploy:
               steps:
 
+                - checkout: none
+                
                 - download: current
 
-                - checkout: none
 
                 - script: tree $(Pipeline.Workspace)
                 
