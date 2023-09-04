@@ -69,7 +69,7 @@ stages:
             deploy:
               steps:
 
-                - download:
+                - download: current
 
                 - checkout: none
 
