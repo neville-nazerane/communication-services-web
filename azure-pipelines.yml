@@ -4,47 +4,74 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
 
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.5.0'
-  displayName: Install Node.js
+stages:
 
-- script: npm install -g npm@latest
-  displayName: Update NPM to latest version
+  - stage: Build
+    jobs:
+      - job: Build
+        
+        steps:
 
-- script: export NODE_OPTIONS="--max-old-space-size=4096" && npm install
-  workingDirectory: Server
-  displayName: Install Server dependencies
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '20.5.0'
+            displayName: Install Node.js
+          
+          - script: npm install -g npm@latest
+            displayName: Update NPM to latest version
+          
+          - script: export NODE_OPTIONS="--max-old-space-size=4096" && npm install
+            workingDirectory: Server
+            displayName: Install Server dependencies
+          
+          - script: npm install --loglevel verbose
+            workingDirectory: Server
+            displayName: Install Server dependencies
+          
+          - script: npm install
+            workingDirectory: Calling
+            displayName: Install Calling dependencies
+          
+          - script: npm run setup
+            displayName: Setup
+          
+          - script: npm run build
+            workingDirectory: Calling
+            displayName: Build Calling project
+          
+          
+          # - script: npm run clean
+          #   displayName: Clean  # If your build script uses this
+          
+          # - script: tsc
+          #   displayName: Run TypeScript Compiler
+          
+          # - script: webpack --mode=production --env production
+          #   displayName: Run Webpack
+          
+          - script: npm run package
+            displayName: Package
+            
+          - publish: Calling/dist
+            
+          
+  - stage: Deploy
+    jobs:
+      - deployment: Deploy
+        environment:
+          name: Development
+          resourceType: VirtualMachine
+          resourceName: websites 
+        
+        strategy:
+          rolling:
+            deploy:
+              steps:
 
-- script: npm install --loglevel verbose
-  workingDirectory: Server
-  displayName: Install Server dependencies
+                - download:
 
-- script: npm install
-  workingDirectory: Calling
-  displayName: Install Calling dependencies
+                - checkout: none
 
-- script: npm run setup
-  displayName: Setup
-
-- script: npm run build
-  workingDirectory: Calling
-  displayName: Build Calling project
-
-
-# - script: npm run clean
-#   displayName: Clean  # If your build script uses this
-
-# - script: tsc
-#   displayName: Run TypeScript Compiler
-
-# - script: webpack --mode=production --env production
-#   displayName: Run Webpack
-
-- script: npm run package
-  displayName: Package
-  
-- publish: Calling/dist
-  
+                - script: tree $(Pipeline.Workspace)
+                
