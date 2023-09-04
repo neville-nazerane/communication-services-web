@@ -46,19 +46,27 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-
+  
       - name: Install (dev) dependencies
         working-directory: ./Calling
         run: npm install
-
+  
+      - name: Setup additional dependencies  # New step
+        working-directory: ./Calling
+        run: npm run setup  # Following the README
+  
       - name: Lint
         working-directory: ./Calling
         run: npm run lint
-
+  
       - name: Check all is pretty
         working-directory: ./Calling
         run: npm run prettier:check
-
+  
       - name: Build
         working-directory: ./Calling
         run: npm run build
+  
+      - name: Package  # New step
+        working-directory: ./Calling
+        run: npm run package  # Following the README
