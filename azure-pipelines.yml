@@ -29,6 +29,11 @@ steps:
 - script: npm run setup
   displayName: Setup
 
+- script: npm run build
+  workingDirectory: Calling
+  displayName: Build Calling project
+
+
 # - script: npm run clean
 #   displayName: Clean  # If your build script uses this
 
