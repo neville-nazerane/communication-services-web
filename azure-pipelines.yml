@@ -10,12 +10,23 @@ steps:
     versionSpec: '12.18.4'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run setup
-    npm run build
-    npm run package
-  displayName: Run NPM tasks
+- script: npm install
+  displayName: Install dependencies
+
+- script: npm run setup
+  displayName: Setup
+
+- script: npm run clean
+  displayName: Clean  # If your build script uses this
+
+- script: tsc
+  displayName: Run TypeScript Compiler
+
+- script: webpack --mode=production --env production
+  displayName: Run Webpack
+
+- script: npm run package
+  displayName: Package
   
 - publish: Calling/dist
   
