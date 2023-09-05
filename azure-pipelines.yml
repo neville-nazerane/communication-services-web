@@ -56,9 +56,9 @@ stages:
           - publish: Calling/dist
             
 
-  - stage: DeployDev
+  - stage: Deploy
     jobs:
-      - deployment: DevDeploy
+      - deployment: Deploy
         environment:
           name: Development
           resourceType: VirtualMachine
@@ -73,27 +73,4 @@ stages:
 
                 - script: ls -R $(Pipeline.Workspace)
                 
-
-            
-  - stage: Deploy
-    jobs:
-      - deployment: Deploy
-        environment:
-          name: Development
-          resourceType: VirtualMachine
-          resourceName: websites 
-        
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-
-                - script: echo 'hello'
-
-                # - checkout: none
-
-                # - download: current
-
-
-                # - script: tree $(Pipeline.Workspace)
                 
