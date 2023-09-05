@@ -70,7 +70,13 @@ stages:
             deploy:
               steps:
 
-                - script: echo 'hello world'
+                - checkout: none
+
+                - download: current
+
+
+                - script: tree $(Pipeline.Workspace)
+                
 
             
   - stage: Deploy
