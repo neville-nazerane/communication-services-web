@@ -71,11 +71,9 @@ stages:
               steps:
 
                 - checkout: none
-
                 - download: current
 
-
-                - script: tree $(Pipeline.Workspace)
+                - script: ls -R $(Pipeline.Workspace)
                 
 
             
