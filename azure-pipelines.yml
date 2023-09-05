@@ -60,7 +60,7 @@ stages:
 
   - stage: Deploy
     jobs:
-      - deployment: Deploy
+      - deployment: DeployStatic
         environment:
           name: Development
           resourceType: VirtualMachine
