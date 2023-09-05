@@ -4,6 +4,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  staticDist: /var/www/videoStatic
 
 stages:
 
@@ -71,6 +73,10 @@ stages:
                 - checkout: none
                 - download: current
 
-                - script: ls -R $(Pipeline.Workspace)
+                - script: |
+                    rm -rf $(staticDist)
+                    mkdir $(staticDist)
+                    cp -r $(Pipeline.Workspace)/Build.Build/build/* $(staticDist)
+                  displayName: copying
                 
                 
