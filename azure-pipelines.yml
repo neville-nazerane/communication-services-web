@@ -6,6 +6,7 @@ pool:
 
 variables:
   staticDist: /var/www/videoStatic
+  apiDist: /var/www/videoAPI
 
 stages:
 
@@ -77,6 +78,11 @@ stages:
                     sudo rm -rf $(staticDist)
                     sudo mkdir $(staticDist)
                     sudo cp -r $(Pipeline.Workspace)/Build.Build/build/* $(staticDist)
-                  displayName: copying
-                
+                  displayName: copying static
+
+                - script: |
+                    sudo rm -rf $(apiDist)
+                    sudo mkdir $(apiDist)
+                    sudo cp -r $(Pipeline.Workspace)/Build.Build/dist-esm/* $(apiDist)
+                  displayName: copying API
                 
