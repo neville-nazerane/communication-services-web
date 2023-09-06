@@ -74,9 +74,9 @@ stages:
                 - download: current
 
                 - script: |
-                    rm -rf $(staticDist)
-                    mkdir $(staticDist)
-                    cp -r $(Pipeline.Workspace)/Build.Build/build/* $(staticDist)
+                    sudo rm -rf $(staticDist)
+                    sudo mkdir $(staticDist)
+                    sudo cp -r $(Pipeline.Workspace)/Build.Build/build/* $(staticDist)
                   displayName: copying
                 
                 
